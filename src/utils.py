@@ -3,8 +3,8 @@ import argparse
 from pathlib import Path
 
 GITIGNORE = {
-    "python": [".env", ".Ds_Store", ".vscode", ".venv", "__pycache__"],
-    "nodejs": [".env", ".Ds_Store", ".vscode", "node_modules"]
+    "python": [".env", ".Ds_Store","data", ".vscode", ".venv", "__pycache__"],
+    "nodejs": [".env", ".Ds_Store","data", ".vscode", "node_modules"]
 }
 
 
@@ -64,8 +64,9 @@ def create_project(lang="python"):
     os.chdir(DIR_PROJECT_FOLDER)
     print(f"Create src folder in {DIR_PROJECT_FOLDER}")
     os.mkdir("src")
-    # print(f"Create .venv folder in {DIR_PROJECT_FOLDER}")
-    # os.mkdir(".venv")
+    
+    print(f"Create data folder in {DIR_PROJECT_FOLDER}")
+    os.mkdir("data")
 
     file_name = Path.joinpath(DIR_PROJECT_FOLDER, ".gitignore")
     create_file(file_name, "\n".join(GITIGNORE.get(lang)))

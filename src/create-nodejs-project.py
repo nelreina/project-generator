@@ -27,6 +27,7 @@ if __name__ == "__main__":
 
     print("Init node environment")
     os.system("yarn add nodemon -D")
+    os.system("yarn add moment string lodash axios")
 
     add_git(project)
 
