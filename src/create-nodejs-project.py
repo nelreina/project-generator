@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-from utils import create_file, add_git, create_project
+from lib import create_file, add_git, create_project
 
 
 if __name__ == "__main__":
