@@ -45,7 +45,7 @@ def create_project(lang="python"):
     print(f"Start create project")
     args = parse_args()
     DIR_CURRENT_WORKING = os.getcwd()
-    DIR_SRC_HOME = Path.joinpath(Path.home(), "Documents/SRC")
+    DIR_SRC_HOME = Path.joinpath(Path.home(), "Dropbox")
     project = f'tutorials/{lang}/' + \
         args.project if bool(args.is_tut) else args.project
     DIR_PROJECT_FOLDER = Path.joinpath(DIR_SRC_HOME, project)
