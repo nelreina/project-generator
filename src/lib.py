@@ -3,8 +3,8 @@ import argparse
 from pathlib import Path
 
 GITIGNORE = {
-    "python": [".env", ".Ds_Store","data", ".vscode", ".venv", "__pycache__"],
-    "nodejs": [".env", ".Ds_Store","data", ".vscode", "node_modules"]
+    "python": [".env", ".Ds_Store", "data", ".vscode", ".venv", "__pycache__"],
+    "nodejs": [".env", ".Ds_Store", "data", ".vscode", "node_modules"]
 }
 
 
@@ -24,7 +24,7 @@ def parse_args():
         description="Create a new Project in SRC folder")
     parser.add_argument("project", help="Project name", default="temp")
     parser.add_argument("-t", "--is_tut", dest="is_tut", nargs='?',
-                        help="Is a tutorial", type=str2bool, default=True)
+                        help="Is a tutorial", type=str2bool, default=False)
     return parser.parse_args()
 
 
@@ -45,9 +45,15 @@ def create_project(lang="python"):
     print(f"Start create project")
     args = parse_args()
     DIR_CURRENT_WORKING = os.getcwd()
-    DIR_SRC_HOME = Path.joinpath(Path.home(), "Dropbox")
-    project = f'tutorials/{lang}/' + \
-        args.project if bool(args.is_tut) else args.project
+
+    if bool(args.is_tut):
+        project = f'tutorials/{lang}/' + args.project
+        DIR_SRC_HOME = Path.joinpath(Path.home(), "Dropbox")
+    else:
+        DIR_SRC_HOME = Path.cwd()
+        project = args.project
+        pass
+
     DIR_PROJECT_FOLDER = Path.joinpath(DIR_SRC_HOME, project)
     print(DIR_PROJECT_FOLDER)
     # Remove Pojects Folder if exists
@@ -64,7 +70,7 @@ def create_project(lang="python"):
     os.chdir(DIR_PROJECT_FOLDER)
     print(f"Create src folder in {DIR_PROJECT_FOLDER}")
     os.mkdir("src")
-    
+
     print(f"Create data folder in {DIR_PROJECT_FOLDER}")
     os.mkdir("data")
 
