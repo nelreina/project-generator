@@ -12,7 +12,7 @@ if __name__ == "__main__":
 
     print("Init pip environment")
     # os.system("pipenv shell")
-    os.system("pipenv install requests argparse")
+    os.system("pipenv install requests argparse python-dotenv")
     os.system("pipenv install autopep8 --dev")
 
     add_git(project)
