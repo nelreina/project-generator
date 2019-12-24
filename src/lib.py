@@ -78,7 +78,7 @@ def create_project(lang="python"):
     create_file(file_name, "\n".join(GITIGNORE.get(lang)))
 
     file_name = Path.joinpath(DIR_PROJECT_FOLDER, ".env")
-    create_file(file_name, "")
+    create_file(file_name, "DEBUG=True")
 
     file_name = Path.joinpath(DIR_PROJECT_FOLDER, "README.md")
     create_file(file_name, f"# Project {args.project}")
