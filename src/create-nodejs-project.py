@@ -5,8 +5,8 @@ from lib import create_file, add_git, create_project
 
 
 if __name__ == "__main__":
-    DIR_PROJECT_FOLDER, project = create_project("nodejs")
-
+    DIR_PROJECT_FOLDER, args = create_project("nodejs")
+    project = args.project
     pjson = '''{{
   "name": "{}",
   "version": "1.0.0",

@@ -83,4 +83,4 @@ def create_project(lang="python"):
     file_name = Path.joinpath(DIR_PROJECT_FOLDER, "README.md")
     create_file(file_name, f"# Project {args.project}")
 
-    return DIR_PROJECT_FOLDER, args.project
+    return DIR_PROJECT_FOLDER, args

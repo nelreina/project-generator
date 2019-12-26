@@ -5,8 +5,8 @@ from lib import create_file, add_git, create_project
 
 
 if __name__ == "__main__":
-    DIR_PROJECT_FOLDER, project = create_project()
-
+    DIR_PROJECT_FOLDER, args = create_project()
+    project = args.project
     file_name = Path.joinpath(DIR_PROJECT_FOLDER, "src/app.py")
     create_file(file_name, f'''"""Project {project}"""
 import os
