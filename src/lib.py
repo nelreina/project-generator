@@ -25,6 +25,7 @@ def parse_args():
     parser.add_argument("project", help="Project name", default="temp")
     parser.add_argument("-t", "--is_tut", dest="is_tut", nargs='?',
                         help="Is a tutorial", type=str2bool, default=False)
+    parser.add_argument("-p", "--packages", dest="packages", help="Install npm or pip packages")
     return parser.parse_args()
 
 
