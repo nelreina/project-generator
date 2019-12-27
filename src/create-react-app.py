@@ -7,7 +7,7 @@ import crap
 
 if __name__ == "__main__":
     project_name = sys.argv[1]
-    os.system('npx create-react-app ' + project_name)
+    os.system('npx create-react-app@latest ' + project_name)
     DIR_CURRENT_WORKING = Path.cwd()
     DIR_PROJECT_FOLDER = Path.joinpath(DIR_CURRENT_WORKING, project_name)
     DIR_PROJECT_SRC_FOLDER = Path.joinpath(DIR_PROJECT_FOLDER, 'src')
