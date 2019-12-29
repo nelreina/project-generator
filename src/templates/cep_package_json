@@ -1,0 +1,35 @@
+{{
+  "name": "{project}",
+  "version": "1.0.0",
+  "main": "electron.js",
+  "license": "MIT",
+  "author": {{
+    "name": "Nelson Reina",
+    "email": "nelreina@gmail.com",
+    "url": "https://nelreina.com"
+  }},
+  "build": {{
+    "appId": "com.nelreina.{project}",
+    "productName": "{title}",
+    "copyright": "Copyright © 2020 ${{author}}",
+    "mac": {{
+      "category": "public.app-category.utilities"
+    }},
+    "files": [
+      "./dist/*",
+      "./node_modules/**/*",
+      "./electron.js"
+    ],
+    "directories": {{
+      "buildResources": "assets",
+      "output": "build"
+    }}
+  }},
+  "scripts": {{
+    "dev": "concurrently \"parcel src/index.html\" \"wait-on http://localhost:1234 && electron . \"  ",
+    "build": "yarn run build:parcel && yarn run build:electron",
+    "build:electron": "electron-builder",
+    "pack": "build -mw",
+    "build:parcel": "parcel build src/index.html --public-url=\"./\""
+  }}
+}}

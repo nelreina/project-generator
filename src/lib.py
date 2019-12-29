@@ -4,8 +4,18 @@ from pathlib import Path
 
 GITIGNORE = {
     "python": [".env", ".Ds_Store", "data", ".vscode", ".venv", "__pycache__"],
-    "nodejs": [".env", ".Ds_Store", "data", ".vscode", "node_modules"]
+    "nodejs": [".env", ".Ds_Store", "data", ".vscode", "node_modules"],
+    "electron": [".env", ".Ds_Store", "data", ".vscode", "node_modules", ".cache", "build", "dist"],
 }
+
+
+def create_gitignore(project_dir, lang):
+    file_name = Path.joinpath(project_dir, ".gitignore")
+    create_file(file_name, "\n".join(GITIGNORE.get(lang)))
+
+
+def get_title(name):
+    return name.replace('-', ' ').title()
 
 
 def str2bool(v):
@@ -24,7 +34,8 @@ def create_from_template(template_name, file_name, obj={}):
     template_file = __dirname + f'/templates/{template_name}'
     with open(template_file) as template:
         text = template.read()
-        text = text.format(**obj)
+        if obj:
+            text = text.format(**obj)
         create_file(file_name, text)
 
 
@@ -85,8 +96,7 @@ def create_project(lang="python"):
     print(f"Create data folder in {DIR_PROJECT_FOLDER}")
     os.mkdir("data")
 
-    file_name = Path.joinpath(DIR_PROJECT_FOLDER, ".gitignore")
-    create_file(file_name, "\n".join(GITIGNORE.get(lang)))
+    create_gitignore(DIR_PROJECT_FOLDER, lang)
 
     file_name = Path.joinpath(DIR_PROJECT_FOLDER, ".env")
     create_file(file_name, "DEBUG=True")
