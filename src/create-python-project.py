@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-from lib import create_file, add_git, create_project
+from lib import create_from_template, add_git, create_project
 
 
 if __name__ == "__main__":
@@ -9,25 +9,14 @@ if __name__ == "__main__":
     project = args.project
 
     file_name = Path.joinpath(DIR_PROJECT_FOLDER, "src/app.py")
-    create_file(file_name, f'''"""Project {project}"""
-import os
-from dotenv import load_dotenv
-
-
-if __name__ == "__main__":
-    load_dotenv()
-    print(f"running {project} ...")
-    print("DEBUG=" + os.getenv("DEBUG", "False"))
-
-
-''')
+    create_from_template("cpy_app_py", file_name, {"project": project})
 
     print("Init pip environment")
-    os.system("pipenv install requests argparse python-dotenv")
+    os.system("pipenv install argparse python-dotenv")
     os.system("pipenv install autopep8 pyinstaller --dev")
     if args.packages:
         os.system('pipenv install ' + args.packages)
 
     add_git(project)
-
-    os.system("code .")
+    os.chdir(DIR_PROJECT_FOLDER)
+    os.system("code . src/app.py")
