@@ -12,7 +12,7 @@ if __name__ == "__main__":
     create_from_template("cpy_app_py", file_name, {"project": project})
 
     print("Init pip environment")
-    os.system("pipenv install argparse python-dotenv")
+    os.system("pipenv install requests argparse python-dotenv")
     os.system("pipenv install autopep8 pyinstaller --dev")
     if args.packages:
         os.system('pipenv install ' + args.packages)
