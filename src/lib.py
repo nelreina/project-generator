@@ -19,13 +19,23 @@ def str2bool(v):
         raise argparse.ArgumentTypeError('Boolean value expected.')
 
 
+def create_from_template(template_name, file_name, obj={}):
+    __dirname = os.path.dirname(os.path.abspath(__file__))
+    template_file = __dirname + f'/templates/{template_name}'
+    with open(template_file) as template:
+        text = template.read()
+        text = text.format(**obj)
+        create_file(file_name, text)
+
+
 def parse_args():
     parser = argparse.ArgumentParser(
         description="Create a new Project in SRC folder")
     parser.add_argument("project", help="Project name", default="temp")
     parser.add_argument("-t", "--is_tut", dest="is_tut", nargs='?',
                         help="Is a tutorial", type=str2bool, default=False)
-    parser.add_argument("-p", "--packages", dest="packages", help="Install npm or pip packages")
+    parser.add_argument("-p", "--packages", dest="packages",
+                        help="Install npm or pip packages")
     return parser.parse_args()
 
 

@@ -1,0 +1,10 @@
+  import React from 'react';
+  import './App.css';
+
+  function App() {{
+    return (
+      <h1>App: {project_name}</h1>  
+    );
+  }}
+
+  export default App;

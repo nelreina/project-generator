@@ -1,4 +1,4 @@
-from lib import create_file
+from lib import create_file, create_from_template
 from pathlib import Path
 import os
 
@@ -14,20 +14,10 @@ def handle_index_html(dir, project_name):
 
 
 def create_app_jsx(src_dir, project_name):
-    app_jsx = f'''
-  import React from 'react';
-  import './App.css';
-
-  function App() {{
-    return (
-      <h1>App: {project_name}</h1>  
-    );
-  }}
-
-  export default App;
-  '''
+    title = project_name.replace('-', ' ').title()
     file_name = Path.joinpath(src_dir, "App.jsx")
-    create_file(file_name, app_jsx)
+    create_from_template("crap_app_jsx", file_name, {
+                         "project_name": title})
 
 
 def remove_files():
@@ -48,13 +38,5 @@ def handle_readme_file(dir, project_name):
 
 
 def create_index_css(src_dir):
-    index_css = '''
-root {{}}
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-'''
     file_name = Path.joinpath(src_dir, "index.css")
-    create_file(file_name, index_css)
+    create_from_template('crap_index_css', file_name)
