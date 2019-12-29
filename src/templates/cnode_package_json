@@ -1,0 +1,10 @@
+{{
+  "name": "{project}",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {{
+    "dev": "nodemon --watch src src/index --dev=true",
+    "start": "node src/index"
+  }},
+  "license": "MIT"
+}}
