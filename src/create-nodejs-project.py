@@ -24,6 +24,6 @@ if __name__ == "__main__":
     os.system(f"yarn add {pcks}")
     add_git(project)
 
-    os.system("code .")
+    os.system("code . src/index.js")
     os.chdir(DIR_PROJECT_FOLDER)
     os.system("yarn dev")
