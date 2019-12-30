@@ -1,0 +1,16 @@
+import React from 'react'
+import { Typography } from '@material-ui/core'
+import { Helmet } from "react-helmet";
+const Settings = () => {
+  return (
+    <>
+      <Helmet>
+        <title>Settings</title>
+      </Helmet>
+      <Typography variant="h4">Settings</Typography>
+
+    </>
+  )
+}
+
+export default Settings

@@ -24,8 +24,7 @@ if __name__ == "__main__":
     create_from_template("cep_app_css", file_name)
 
     file_name = Path.joinpath(DIR_PROJECT_FOLDER, "src/App.jsx")
-    create_from_template("cep_app_jsx", file_name, {
-                         "project": get_title(project)})
+    create_from_template("cep_app_jsx", file_name)
 
     file_name = Path.joinpath(DIR_PROJECT_FOLDER, "src/index.html")
     create_from_template("cep_index_html", file_name, {
@@ -34,6 +33,14 @@ if __name__ == "__main__":
     file_name = Path.joinpath(DIR_PROJECT_FOLDER, "src/start-app.js")
     create_from_template("cep_start_app", file_name, {"project": project})
 
+    # Create src/views files
+    file_name = Path.joinpath(DIR_PROJECT_FOLDER, "src/views/Main.jsx")
+    create_from_template("cep_view_main", file_name, {
+                         "project": get_title(project)})
+
+    file_name = Path.joinpath(DIR_PROJECT_FOLDER, "src/views/Settings.jsx")
+    create_from_template("cep_view_settings", file_name)
+
     dependecies = [
         "@material-ui/core",
         "@material-ui/icons",
@@ -41,6 +48,9 @@ if __name__ == "__main__":
         "formik",
         "react",
         "react-dom",
+        "react-router",
+        "react-router-dom",
+        "react-helmet",
         "styled-components",
         "typeface-roboto",
     ]

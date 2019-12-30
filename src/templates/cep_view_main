@@ -1,0 +1,15 @@
+import React from 'react'
+import {{ Typography, Button }} from '@material-ui/core'
+
+const electron = window.require('electron');
+const ipcRenderer  = electron.ipcRenderer;
+
+const Main = () =>  (
+    <div>
+      <Typography variant="h4">Project: {project} </Typography>
+      <Button onClick={{() => ipcRenderer.send("show-settings")}} >Settings</Button>
+    </div>
+)
+
+
+export default Main

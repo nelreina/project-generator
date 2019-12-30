@@ -90,8 +90,13 @@ def create_project(lang="python"):
 
     print(f"Changing dir to {DIR_PROJECT_FOLDER}")
     os.chdir(DIR_PROJECT_FOLDER)
+
     print(f"Create src folder in {DIR_PROJECT_FOLDER}")
     os.mkdir("src")
+
+    if lang == 'electron':
+        print(f"Create views folder in {DIR_PROJECT_FOLDER}")
+        os.mkdir("src/views")
 
     print(f"Create data folder in {DIR_PROJECT_FOLDER}")
     os.mkdir("data")
