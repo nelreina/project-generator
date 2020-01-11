@@ -1,7 +1,7 @@
   import React from 'react';
   import './App.css';
 
-  function App() {{
+  const App = () => {{
     return (
       <h1>App: {project_name}</h1>  
     );

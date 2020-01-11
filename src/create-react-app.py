@@ -1,13 +1,13 @@
 import os
 import sys
-from lib import create_file
+from lib import create_file, parse_args
 from pathlib import Path
 import crap
 
-
-if __name__ == "__main__":
-    project_name = sys.argv[1]
+def run(args):
+    project_name, packages = args
     os.system('npx create-react-app@latest ' + project_name)
+     
     DIR_CURRENT_WORKING = Path.cwd()
     DIR_PROJECT_FOLDER = Path.joinpath(DIR_CURRENT_WORKING, project_name)
     DIR_PROJECT_SRC_FOLDER = Path.joinpath(DIR_PROJECT_FOLDER, 'src')
@@ -26,6 +26,9 @@ if __name__ == "__main__":
     crap.handle_readme_file(DIR_PROJECT_FOLDER, project_name)
     crap.create_empty_files(DIR_PROJECT_FOLDER, ['.env'])
 
+    if packages:
+        os.system('yarn add ' + packages)
+
     # Handle GIT
     os.system('echo ".env" >> .gitignore')
     os.system('git add .')
@@ -33,3 +36,9 @@ if __name__ == "__main__":
 
     os.system('code .')
     os.system('yarn start')
+
+
+
+if __name__ == "__main__":
+    run(vars(parse_args()).values())
+

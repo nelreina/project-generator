@@ -42,11 +42,11 @@ def create_from_template(template_name, file_name, obj={}):
 def parse_args():
     parser = argparse.ArgumentParser(
         description="Create a new Project in SRC folder")
-    parser.add_argument("project", help="Project name", default="temp")
-    parser.add_argument("-t", "--is_tut", dest="is_tut", nargs='?',
-                        help="Is a tutorial", type=str2bool, default=False)
+    parser.add_argument("project", help="Project name")
     parser.add_argument("-p", "--packages", dest="packages",
-                        help="Install npm or pip packages")
+                        help="""Install npm or pip packages.
+    For multiple packages use quotes! e.g. -p "package1 package2" or --packages "package1 package2"
+                        """)
     return parser.parse_args()
 
 
@@ -68,13 +68,8 @@ def create_project(lang="python"):
     args = parse_args()
     DIR_CURRENT_WORKING = os.getcwd()
 
-    if bool(args.is_tut):
-        project = f'tutorials/{lang}/' + args.project
-        DIR_SRC_HOME = Path.joinpath(Path.home(), "Dropbox")
-    else:
-        DIR_SRC_HOME = Path.cwd()
-        project = args.project
-        pass
+    DIR_SRC_HOME = Path.cwd()
+    project = args.project
 
     DIR_PROJECT_FOLDER = Path.joinpath(DIR_SRC_HOME, project)
     print(DIR_PROJECT_FOLDER)
