@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-from lib import create_from_template, add_git, create_project
+from lib import create_from_template, add_git, create_project, parse_args
 
 
 def run(pip=True, open_vs_code=True):
@@ -25,4 +25,6 @@ def run(pip=True, open_vs_code=True):
 
 
 if __name__ == "__main__":
-    run()
+    args = parse_args()
+    pipenv = args.pipenv == 'Y'
+    run(pip=pipenv)

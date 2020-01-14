@@ -47,6 +47,8 @@ def parse_args():
                         help="""Install npm or pip packages.
     For multiple packages use quotes! e.g. -p "package1 package2" or --packages "package1 package2"
                         """)
+    parser.add_argument("-e", "--pipenv", dest="pipenv",
+                        help="With pipenv ?", default="Y")
     return parser.parse_args()
 
 
