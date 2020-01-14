@@ -13,7 +13,7 @@ def run(pip=True, open_vs_code=True):
 
     if pip:
         print("Init pip environment")
-        os.system("pipenv install autopep8 pyinstaller --dev")
+        os.system("pipenv install autopep8 pyinstaller ptpython --dev")
         os.system("pipenv install requests python-dotenv")
         if args.packages:
             os.system('pipenv install ' + args.packages)
