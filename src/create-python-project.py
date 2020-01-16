@@ -61,6 +61,7 @@ def run(pip=True, open_vs_code=True):
     if open_vs_code:
         os.chdir(DIR_PROJECT_FOLDER)
         os.system(f"code . {main_file_name}")
+        os.system(f"pipenv shell")
 
 
 if __name__ == "__main__":
