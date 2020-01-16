@@ -25,12 +25,6 @@ def remove_files():
     os.system('rm ' + remove_file_list)
 
 
-def create_empty_files(dir, empty_files):
-    for file in empty_files:
-        file_name = Path.joinpath(dir, file)
-        create_file(file_name, '')
-
-
 def handle_readme_file(dir, project_name):
     os.system('rm README.md')
     file_name = Path.joinpath(dir, "README.md")

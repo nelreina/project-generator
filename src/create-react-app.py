@@ -1,6 +1,6 @@
 import os
 import sys
-from lib import create_file, parse_args
+from lib import create_file, parse_args, create_empty_files
 from pathlib import Path
 import crap
 
@@ -20,11 +20,11 @@ def run(args):
     crap.remove_files()
     crap.create_app_jsx(DIR_PROJECT_SRC_FOLDER, project_name)
     crap.create_index_css(DIR_PROJECT_SRC_FOLDER)
-    crap.create_empty_files(DIR_PROJECT_SRC_FOLDER, ['App.css'])
+    create_empty_files(DIR_PROJECT_SRC_FOLDER, ['App.css'])
 
     os.chdir(DIR_PROJECT_FOLDER)
     crap.handle_readme_file(DIR_PROJECT_FOLDER, project_name)
-    crap.create_empty_files(DIR_PROJECT_FOLDER, ['.env'])
+    create_empty_files(DIR_PROJECT_FOLDER, ['.env'])
 
     if packages:
         os.system('yarn add ' + packages)

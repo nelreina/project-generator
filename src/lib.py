@@ -3,7 +3,7 @@ import argparse
 from pathlib import Path
 
 GITIGNORE = {
-    "python": [".env", ".Ds_Store", "data", ".vscode", ".venv", "__pycache__"],
+    "python": [".env", ".Ds_Store", "data", ".vscode", ".venv", "__pycache__", "nodemon.json"],
     "nodejs": [".env", ".Ds_Store", "data", ".vscode", "node_modules"],
     "electron": [".env", ".Ds_Store", "data", ".vscode", "node_modules", ".cache", "build", "dist"],
 }
@@ -16,6 +16,12 @@ def create_gitignore(project_dir, lang):
 
 def get_title(name):
     return name.replace('-', ' ').title()
+
+
+def create_empty_files(dir, empty_files):
+    for file in empty_files:
+        file_name = Path.joinpath(dir, file)
+        create_file(file_name, '')
 
 
 def str2bool(v):
@@ -49,7 +55,7 @@ def parse_args():
                         """)
     parser.add_argument("-e", "--pipenv", dest="pipenv", help="With pipenv ?", type=str2bool, default=True)
     parser.add_argument("-f", "--flaskapp", dest="flaskapp", help="is flaskapp ?", type=str2bool, default=False)
-    parser.add_argument("-db", "--dialect", dest="dialect", help="Database dialect (postgress, mssql, mysql)", type=str, default='sqlite')
+    parser.add_argument("-db", "--db_dialect", dest="db_dialect", help="Database db_dialect (postgress, mssql, mysql)", type=str, default='sqlite')
 
     return parser.parse_args()
 
@@ -90,8 +96,13 @@ def create_project(lang="python"):
     print(f"Changing dir to {DIR_PROJECT_FOLDER}")
     os.chdir(DIR_PROJECT_FOLDER)
 
-    print(f"Create src folder in {DIR_PROJECT_FOLDER}")
-    os.mkdir("src")
+    if lang == 'python':
+        print(f"Create {project} folder in {DIR_PROJECT_FOLDER}")
+        os.mkdir(project)
+        
+    else:
+        print(f"Create src folder in {DIR_PROJECT_FOLDER}")
+        os.mkdir("src")
 
     if lang == 'electron':
         print(f"Create views folder in {DIR_PROJECT_FOLDER}")
