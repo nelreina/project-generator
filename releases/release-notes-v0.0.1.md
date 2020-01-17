@@ -4,5 +4,6 @@
 -  added generate release notes
 
 ### Fixes
+-  added todos comments
 -  create release folder if not exists | fixed list break markdown
 
