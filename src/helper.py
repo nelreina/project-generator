@@ -3,10 +3,7 @@ from pygit2 import Repository
 from pygit2 import GIT_SORT_TIME
 from lib import str2bool
 import argparse
-
-rversion = "v2.2.0"
-
-
+import os 
 
 
 def parse_args():
@@ -23,7 +20,7 @@ def parse_args():
 
 def get_release_messages(rversion, git_dir='.git'):
     repo = Repository(git_dir)
-    rtypes = {"nf": "New Feature", "bf": "Fixes", }
+    rtypes = {"nf": "New Features", "bf": "Fixes", }
     rmesseges = []
 
     for rtype in rtypes:
@@ -41,17 +38,20 @@ def gen_markdown_text(version, messages):
     for rtype, rmsgs in messages.items():
         markdown_text += f"### {rtype}\n"
         if len(rmsgs) == 0:
-            markdown_text += f"- there is no {rtype}\n"
+            markdown_text += f"> *there is no {rtype}*\n"
         else:
             for message in rmsgs:
                 markdown_text += f"- {message}\n"
-
+        markdown_text += "\n"
     return markdown_text
 
 
 def generate_release_notes(version, git_dir):
     messages = get_release_messages(version, git_dir)
     markdown = gen_markdown_text(version, messages)
+    if not os.path.exists('./releases'):
+        os.makedirs('./releases')
+
     filename = f'./releases/release-notes-{version}.md'
     with open(filename, 'w') as release_notes:
         release_notes.write(markdown)
