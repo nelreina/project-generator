@@ -47,6 +47,7 @@ def gen_markdown_text(version, messages):
 
 
 def generate_release_notes(version, git_dir):
+    """ TODO: Check if is a git project"""
     messages = get_release_messages(version, git_dir)
     markdown = gen_markdown_text(version, messages)
     if not os.path.exists('./releases'):
