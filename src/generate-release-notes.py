@@ -7,7 +7,7 @@ def main(args):
 
     if args.commit:
     	os.system(f'git add {filename}')
-    	os.system(f'git commit -m "generated release notes {filename}"')
+    	os.system(f'git commit -m "generated release notes for version {args.version}"')
 
 
 if __name__ == "__main__":
