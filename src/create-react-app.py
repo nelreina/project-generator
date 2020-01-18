@@ -5,7 +5,8 @@ from pathlib import Path
 import crap
 
 def run(args):
-    project_name, packages = args
+    project_name = args.project
+    packages = args.packages
     os.system('npx create-react-app@latest ' + project_name)
      
     DIR_CURRENT_WORKING = Path.cwd()
@@ -40,5 +41,5 @@ def run(args):
 
 
 if __name__ == "__main__":
-    run(vars(parse_args()).values())
+    run(parse_args())
 
