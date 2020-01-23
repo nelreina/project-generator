@@ -1,6 +1,7 @@
 # Release Version 0.0.1
 
 ### New Features
+-  Preparing create gatsby app cgap
 -  added generate release notes
 
 ### Fixes
