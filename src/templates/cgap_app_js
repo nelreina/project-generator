@@ -1,0 +1,23 @@
+import React from "react"
+import { Router } from "@reach/router"
+
+import Layout from "../components/layout"
+import SEO from "../components/seo"
+import App from "../components/App"
+import { SWRConfig } from "swr"
+
+const fetcher = (...args) => fetch(...args).then(r => r.json())
+
+const SecondPage = () => (
+  <Layout>
+    <SEO title="App" />
+    <SWRConfig value={{ fetcher }}>
+      <Router>
+        <App path="/app/*" />
+      </Router>
+    </SWRConfig>
+  </Layout>
+)
+
+export default SecondPage
+
