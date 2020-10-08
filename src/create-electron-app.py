@@ -26,6 +26,18 @@ if __name__ == "__main__":
     file_name = Path.joinpath(DIR_PROJECT_FOLDER, "src/App.jsx")
     create_from_template("cep_app_jsx", file_name)
 
+    file_name = Path.joinpath(DIR_PROJECT_FOLDER, "src/theme.js")
+    create_from_template("cep_theme_js", file_name)
+
+    file_name = Path.joinpath(DIR_PROJECT_FOLDER, "src/i18next.js")
+    create_from_template("cep_i18next_js", file_name)
+
+    file_name = Path.joinpath(DIR_PROJECT_FOLDER, "src/translation-en.json")
+    create_from_template("cep_translation_en_json", file_name)
+
+    file_name = Path.joinpath(DIR_PROJECT_FOLDER, "src/translation-cw.json")
+    create_from_template("cep_translation_cw_json", file_name)
+
     file_name = Path.joinpath(DIR_PROJECT_FOLDER, "src/index.html")
     create_from_template("cep_index_html", file_name, {
                          "project": get_title(project)})
@@ -45,7 +57,7 @@ if __name__ == "__main__":
         "@material-ui/core",
         "@material-ui/icons",
         "electron-is-dev",
-        "formik",
+        "react-hook-form",
         "react",
         "react-dom",
         "react-router",

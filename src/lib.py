@@ -53,9 +53,14 @@ def parse_args():
                         help="""Install npm or pip packages.
     For multiple packages use quotes! e.g. -p "package1 package2" or --packages "package1 package2"
                         """)
-    parser.add_argument("-e", "--pipenv", dest="pipenv", help="With pipenv ? yes/no true/false", type=str2bool, default=True)
-    parser.add_argument("-f", "--flaskapp", dest="flaskapp", help="is flaskapp ? yes/no true/false", type=str2bool, default=False)
-    parser.add_argument("-db", "--db_dialect", dest="db_dialect", help="Database db_dialect (postgress, mssql, mysql)", type=str, default='sqlite')
+    parser.add_argument("-e", "--pipenv", dest="pipenv",
+                        help="With pipenv ? yes/no true/false", type=str2bool, default=True)
+    parser.add_argument("-s", "--autostart", dest="autostart",
+                        help="Auto Start Dev ? yes/no true/false", type=str2bool, default=False)
+    parser.add_argument("-f", "--flaskapp", dest="flaskapp",
+                        help="is flaskapp ? yes/no true/false", type=str2bool, default=False)
+    parser.add_argument("-db", "--db_dialect", dest="db_dialect",
+                        help="Database db_dialect (postgress, mssql, mysql)", type=str, default='sqlite')
 
     return parser.parse_args()
 
@@ -99,7 +104,7 @@ def create_project(lang="python"):
     if lang == 'python':
         print(f"Create {project} folder in {DIR_PROJECT_FOLDER}")
         os.mkdir(project)
-        
+
     else:
         print(f"Create src folder in {DIR_PROJECT_FOLDER}")
         os.mkdir("src")

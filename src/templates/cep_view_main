@@ -1,15 +1,32 @@
-import React from 'react'
-import {{ Typography, Button }} from '@material-ui/core'
+import React from "react";
+import {{ Typography, Button, ButtonGroup }} from "@material-ui/core";
+import {{ Trans, useTranslation }} from "react-i18next";
 
-const electron = window.require('electron');
-const ipcRenderer  = electron.ipcRenderer;
+const electron = window.require("electron");
+const ipcRenderer = electron.ipcRenderer;
 
-const Main = () =>  (
+const Main = () => {{
+  const {{ t, i18n }} = useTranslation();
+
+  return (
     <div>
-      <Typography variant="h4">Project: {project} </Typography>
-      <Button onClick={{() => ipcRenderer.send("show-settings")}} >Settings</Button>
+      <Trans>
+        <ButtonGroup>
+          <Button onClick={{() => i18n.changeLanguage("en")}}>EN</Button>
+          <Button onClick={{() => i18n.changeLanguage("cw")}}>CW</Button>
+        </ButtonGroup>
+
+        <Typography variant="h4">{{t("project")}}: Kiosk </Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={{() => ipcRenderer.send("show-settings")}}
+        >
+          {{t("settings")}}
+        </Button>
+      </Trans>
     </div>
-)
+  );
+}};
 
-
-export default Main
+export default Main;
