@@ -15,7 +15,7 @@ if __name__ == "__main__":
     file_name = Path.joinpath(DIR_PROJECT_FOLDER, "src/index.js")
     create_from_template("cnode_index_js", file_name, {"project": project})
 
-    pcks = 'moment string lodash axios dotenv minimist @nelreina/node-log4js '
+    pcks = 'lodash axios dotenv minimist @nelreina/node-log4js '
     if args.packages:
         pcks += args.packages
 
@@ -24,6 +24,7 @@ if __name__ == "__main__":
     os.system(f"yarn add {pcks}")
     add_git(project)
 
-    os.system("code . src/index.js")
-    os.chdir(DIR_PROJECT_FOLDER)
-    os.system("yarn dev")
+    if args.autostart:
+        os.system("code . src/index.js")
+        os.chdir(DIR_PROJECT_FOLDER)
+        os.system("yarn dev")
