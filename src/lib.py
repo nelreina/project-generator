@@ -76,6 +76,9 @@ def add_git(project):
     os.system("git init")
     os.system("git add .")
     os.system(f'git commit -m "generated project {project}"')
+    os.system("git branch -M main")
+    os.system("git brn test")
+    os.system("git brn develop")
 
 
 def create_project(lang="python"):
