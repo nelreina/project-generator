@@ -1,9 +1,26 @@
 // Generated project {project}
 require('dotenv').config();
-const log4js = require('@nelreina/node-log4js');
+const {{transports, createLogger, format}} = require('winston');
+
+const logger = createLogger({{
+  level: 'info',
+  format: format.combine(
+	format.timestamp(),
+	format.json()
+  ),
+  defaultMeta: {{ service: '{project}' }},
+  transports: [
+    new transports.Console(),
+    new transports.File({{ filename: 'error.log', level: 'error' }}),
+    new transports.File({{ filename: '{project}.log' }}),
+  ],
+}});
+
+
     
 const argv = require('minimist')(process.argv.slice(2));
-const logger = log4js('{project}');
 const DEBUG = process.env['DEBUG'];
 
-logger.info(`Start Project {project}: ${{JSON.stringify({{DEBUG, argv}})}}  `)
+
+
+logger.info(`Start Project: ${{JSON.stringify({{DEBUG, argv}})}}  `)

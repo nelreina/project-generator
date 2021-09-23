@@ -4,7 +4,7 @@ from pathlib import Path
 
 GITIGNORE = {
     "python": [".env", ".Ds_Store", "data", ".vscode", ".venv", "__pycache__", "nodemon.json"],
-    "nodejs": [".env", ".Ds_Store", "data", ".vscode", "node_modules"],
+    "nodejs": [".env", ".Ds_Store", "data", ".vscode", "node_modules", "*.log"],
     "electron": [".env", ".Ds_Store", "data", ".vscode", "node_modules", ".cache", "build", "dist"],
 }
 
