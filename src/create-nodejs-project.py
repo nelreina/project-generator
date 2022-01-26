@@ -15,7 +15,7 @@ if __name__ == "__main__":
     file_name = Path.joinpath(DIR_PROJECT_FOLDER, "src/index.js")
     create_from_template("cnode_index_js", file_name, {"project": project})
 
-    pcks = 'lodash axios dotenv minimist winston '
+    pcks = 'lodash axios dotenv minimist winston redis'
     if args.packages:
         pcks += args.packages
 
