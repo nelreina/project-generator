@@ -40,6 +40,9 @@ def run(pip=True, open_vs_code=True):
     main_file_name = Path.joinpath(DIR_PROJECT_MAIN, "__main__.py")
     create_from_template("cpy_app_py", main_file_name, {"project": project})
     
+    main_file_name = Path.joinpath(DIR_PROJECT_MAIN, "redisstream.py")
+    create_from_template("cpy_redisstream", main_file_name, {"project": project})
+    
     file_name = Path.joinpath(DIR_PROJECT_FOLDER, "nodemon.json")
     create_from_template("cpy_nodemon_json", file_name, {"project": project})
     
@@ -48,7 +51,7 @@ def run(pip=True, open_vs_code=True):
     if pip:
         print("Init pip environment")
         os.system("pipenv install autopep8 pyinstaller ptpython --dev")
-        os.system("pipenv install requests python-dotenv")
+        os.system("pipenv install requests redis python-dotenv")
         
         if args.flaskapp:
             install_flask_app_dependencies()
