@@ -7,8 +7,8 @@ from redis import Redis
 import platform
 
 
-stream_key = environ.get("STREAM", "")
-group_name = environ.get("GROUP_NAME", "python_group")
+stream_key = environ.get("STREAM")
+service_name = "{project}"
 events = environ.get("EVENTS", "PYTHON")
 consumer = platform.node()
 
@@ -35,7 +35,7 @@ def main():
         load_dotenv()
         connection = connect_to_redis()
         stream = RedisStreamConsumer(
-            connection, stream_key, group_name, events)
+            connection, stream_key, service_name, events)
 
         stream.listen(callback, "0")
     except Exception as e:

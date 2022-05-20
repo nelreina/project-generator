@@ -35,7 +35,7 @@ def run(pip=True, open_vs_code=True):
     DIR_PROJECT_FOLDER, args = create_project()
 
     project = args.project
-    DIR_PROJECT_MAIN = Path.joinpath(DIR_PROJECT_FOLDER, project)
+    DIR_PROJECT_MAIN = Path.joinpath(DIR_PROJECT_FOLDER, "app")
 
     main_file_name = Path.joinpath(DIR_PROJECT_MAIN, "__main__.py")
     create_from_template("cpy_app_py", main_file_name, {"project": project})

@@ -105,8 +105,8 @@ def create_project(lang="python"):
     os.chdir(DIR_PROJECT_FOLDER)
 
     if lang == 'python':
-        print(f"Create {project} folder in {DIR_PROJECT_FOLDER}")
-        os.mkdir(project)
+        print(f"Create app folder in {DIR_PROJECT_FOLDER}")
+        os.mkdir("app")
 
     else:
         print(f"Create src folder in {DIR_PROJECT_FOLDER}")
@@ -122,7 +122,7 @@ def create_project(lang="python"):
     create_gitignore(DIR_PROJECT_FOLDER, lang)
 
     file_name = Path.joinpath(DIR_PROJECT_FOLDER, ".env")
-    create_file(file_name, "DEBUG=True")
+    create_file(file_name, "DEBUG=True\nSTREAM=test:stream")
 
     file_name = Path.joinpath(DIR_PROJECT_FOLDER, "README.md")
     create_file(file_name, f"# Project {args.project}")
