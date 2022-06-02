@@ -2,9 +2,12 @@ from dotenv import load_dotenv
 from os import environ
 import sys
 import os
+import logging
 from redisstream import RedisStreamConsumer
 from redis import Redis
 import platform
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s: %(message)s')
 
 
 stream_key = environ.get("STREAM")
@@ -22,15 +25,15 @@ def connect_to_redis():
 
 
 def callback(conn, id, event, payload, ack):
-    print("id: ", id)
-    print("Event: ", event)
-    print("      --> ", payload)
+    logging.info(f"id: {id}")
+    logging.info(f"Event: {event}")
+    logging.info(f"Payload:{payload}")
     ack(id)
 
 
 def main():
     try:
-        print(f"running {project} ...")
+        logging.info(f"running {project} ...")
 
         load_dotenv()
         connection = connect_to_redis()
@@ -39,7 +42,7 @@ def main():
 
         stream.listen(callback, "0")
     except Exception as e:
-        print(f"{{e}}")
+        logging.info(f"{{e}}")
         sys.exit(0)
 
 
@@ -47,7 +50,7 @@ if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        print('Application is shuting down!')
+        logging.info('Application is shuting down!')
         try:
             sys.exit(0)
         except SystemExit:

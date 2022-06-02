@@ -1,5 +1,9 @@
 import json
 import platform
+import logging
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s: %(message)s')
+
 
 
 class RedisStreamConsumer():
@@ -17,30 +21,30 @@ class RedisStreamConsumer():
         try:
             self.conn.xgroup_create(
                 self.stream_key, self.group_name, startID, mkstream=True)
-            print(
+            logging.info(
                 f"Group '{{self.group_name}}' is created for stream '{{self.stream_key}}'!")
             return True
         except Exception as e:
             err_message = "{{}}".format(e)
             if "Group name already exists" in err_message:
-                print(
+                logging.info(
                     f"Group '{{self.group_name}}' has joined stream '{{self.stream_key}}'!")
                 return True
             else:
-                print(err_message + ": " + self.group_name)
+                logging.info(err_message + ": " + self.group_name)
                 return False
 
     def _registerConsumer(self):
         try:
             self.conn.xgroup_createconsumer(
                 self.stream_key, self.group_name, self.consumer)
-            print(
+            logging.info(
                 f"Consumer: {{self.consumer}} is registered in group {{self.group_name}}!")
             return True
 
         except Exception as e:
             err_message = "{{}}".format(e)
-            print(err_message + ": " + self.consumer)
+            logging.info(err_message + ": " + self.consumer)
             return False
 
     def _get_data(self, message):
@@ -67,7 +71,7 @@ class RedisStreamConsumer():
         if not cont:
             raise Exception("Register Consumer Error! ")
 
-        print(f"Listening to message from '{{self.stream_key}}'...")
+        logging.info(f"Listening to message from '{{self.stream_key}}'...")
         last_id = ">"
         sleep_ms = 5000
         while True:
@@ -86,4 +90,4 @@ class RedisStreamConsumer():
                         self.ack(id)
 
             except ConnectionError as e:
-                print("ERROR REDIS CONNECTION: {{}}".format(e))
+                logging.info("ERROR REDIS CONNECTION: {{}}".format(e))
