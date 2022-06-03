@@ -3,6 +3,7 @@ from os import environ
 import sys
 import os
 import logging
+import signal
 from redisstream import RedisStreamConsumer
 from redis import Redis
 import platform
@@ -30,6 +31,10 @@ def callback(conn, id, event, payload, ack):
     logging.info(f"Payload:{payload}")
     ack(id)
 
+ def terminate(signal, frame):
+    logging.info("Terminating...")
+    sys.exit(0)
+
 
 def main():
     try:
@@ -49,6 +54,8 @@ def main():
 if __name__ == "__main__":
     try:
         main()
+        signal.signal(signal.SIGTERM, terminate)
+
     except KeyboardInterrupt:
         logging.info('Application is shuting down!')
         try:
