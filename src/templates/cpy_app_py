@@ -16,12 +16,13 @@ service_name = "{project}"
 events = environ.get("EVENTS", "PYTHON")
 consumer = platform.node()
 
-
 def connect_to_redis():
-    hostname = environ.get("REDIS_HOSTNAME", "localhost")
+    hostname = environ.get("REDIS_HOST", "localhost")
     port = environ.get("REDIS_PORT", 6379)
+    password = environ.get("REDIS_PW")
 
-    r = Redis(hostname, port, retry_on_timeout=True)
+    r = Redis(hostname, port, password=password,
+              retry_on_timeout=True, client_name=service_name)
     return r
 
 
