@@ -27,12 +27,12 @@ def connect_to_redis():
 
 
 def callback(conn, id, event, payload, ack):
-    logging.info(f"id: {id}")
-    logging.info(f"Event: {event}")
-    logging.info(f"Payload:{payload}")
+    logging.info(f"id: {{id}}")
+    logging.info(f"Event: {{event}}")
+    logging.info(f"Payload:{{payload}}")
     ack(id)
 
- def terminate(signal, frame):
+def terminate(signal, frame):
     logging.info("Terminating...")
     sys.exit(0)
 

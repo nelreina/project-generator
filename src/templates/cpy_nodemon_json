@@ -1,4 +1,4 @@
 {{
-    "watch": ["{project}/"],
+    "watch": ["app/"],
     "ext": "py"
 }}

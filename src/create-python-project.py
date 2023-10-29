@@ -30,7 +30,7 @@ def install_flask_app_dependencies():
     os.system('pipenv install ' + ' '.join(flask_dependencies))
 
 
-def run(pip=True, open_vs_code=True):
+def run(pip=False, open_vs_code=False):
 
     DIR_PROJECT_FOLDER, args = create_project()
 
@@ -44,7 +44,14 @@ def run(pip=True, open_vs_code=True):
     create_from_template("cpy_redisstream", main_file_name, {"project": project})
     
     file_name = Path.joinpath(DIR_PROJECT_FOLDER, "nodemon.json")
-    create_from_template("cpy_nodemon_json", file_name, {"project": project})
+    create_from_template("cpy_nodemon_json", file_name)
+
+    file_name = Path.joinpath(DIR_PROJECT_FOLDER, "Dockerfile")
+    create_from_template("cpy_dockerfile", file_name)
+
+    file_name = Path.joinpath(DIR_PROJECT_FOLDER, "requirements.txt")
+    create_from_template("cpy_requirements_txt", file_name)
+
     
     create_empty_files(DIR_PROJECT_MAIN, ['__init__.py'])
 
@@ -60,7 +67,7 @@ def run(pip=True, open_vs_code=True):
             os.system('pipenv install ' + args.packages)
 
 
-    add_git(project)
+    # add_git(project)
     
 
     if open_vs_code:
