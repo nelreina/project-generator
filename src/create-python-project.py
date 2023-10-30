@@ -81,4 +81,4 @@ def run(pip=False, open_vs_code=False):
 
 if __name__ == "__main__":
     args = parse_args()
-    run(pip=args.pipenv)
+    run(pip=False)
