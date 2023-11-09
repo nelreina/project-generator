@@ -23,10 +23,14 @@ def run(args):
     
     file_name = Path.joinpath(DIR_CURRENT_WORKING, ".env")
     create_from_template("sk_env", file_name)
+    file_name = Path.joinpath(DIR_CURRENT_WORKING, ".dockerignore")
+    create_from_template("sk_dockerignore", file_name)
+    file_name = Path.joinpath(DIR_CURRENT_WORKING, "Dockerfile")
+    create_from_template("sk_dockerfile", file_name)
     file_name = Path.joinpath(DIR_CURRENT_WORKING, "pb_schema.json")
     create_from_template("pb_schema.json", file_name)
 
-    os.system('npm i pocketbase qrcode otplib highlight.js')
+    os.system('npm i pocketbase qrcode otplib highlight.js redis')
 
 
 if __name__ == "__main__":

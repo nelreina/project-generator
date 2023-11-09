@@ -1,0 +1,10 @@
+FROM node:18-slim
+ENV REDIS_HOST=172.17.0.1
+RUN mkdir /appsrc
+ENV NODE_ENV development
+WORKDIR /appsrc
+COPY package.json package-lock*.json ./
+RUN npm i
+EXPOSE 5173
+COPY . ./
+# RUN npm run dev
