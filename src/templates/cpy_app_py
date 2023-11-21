@@ -7,6 +7,9 @@ import signal
 from redisstream import RedisStreamConsumer
 from redis import Redis
 import platform
+import schedule
+import time
+import threading
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s: %(message)s')
 
@@ -26,15 +29,32 @@ def connect_to_redis():
     return r
 
 
-def callback(conn, id, event, payload, ack):
-    logging.info(f"id: {{id}}")
-    logging.info(f"Event: {{event}}")
-    logging.info(f"Payload:{{payload}}")
+def callback(conn, id, event, aggregateId, payload, ack, addToStream):
+    logging.info(f"Event: {{event}} / {{aggregateId}}")
     ack(id)
 
 def terminate(signal, frame):
     logging.info("Terminating...")
     sys.exit(0)
+
+def schedule_job():
+    logging.info("### Running job...")
+
+class ScheduleThread(threading.Thread):
+    def __init__(self):
+        threading.Thread.__init__(self)
+        self.daemon = True
+        self.start()
+
+    def run(self):
+        start_schedule()
+
+def start_schedule():
+    logging.info("Starting schedule...")
+    schedule.every(5).seconds.do(schedule_job)
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
 
 
 def main():
@@ -46,7 +66,11 @@ def main():
         stream = RedisStreamConsumer(
             connection, stream_key, service_name, events)
 
-        stream.listen(callback, "0")
+        schedule_thread = ScheduleThread()
+        callback_thread = threading.Thread(target=stream.listen, args=(callback, "0"))
+        callback_thread.start()
+        schedule_thread.start()
+
     except Exception as e:
         logging.info(f"{{e}}")
         sys.exit(0)
@@ -63,3 +87,5 @@ if __name__ == "__main__":
             sys.exit(0)
         except SystemExit:
             os._exit(0)
+
+

@@ -48,9 +48,12 @@ def run(pip=False, open_vs_code=False):
 
     file_name = Path.joinpath(DIR_PROJECT_FOLDER, "Dockerfile")
     create_from_template("cpy_dockerfile", file_name)
+    
+    file_name = Path.joinpath(DIR_PROJECT_FOLDER, "Dockerfile.dev")
+    create_from_template("cpy_dockerfile_dev", file_name)
 
     file_name = Path.joinpath(DIR_PROJECT_FOLDER, "requirements.txt")
-    create_from_template("cpy_requirements_txt", file_name)
+    create_from_template("cpy_requirements_txt_simple", file_name)
 
     
     create_empty_files(DIR_PROJECT_MAIN, ['__init__.py'])
