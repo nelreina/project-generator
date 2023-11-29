@@ -1,10 +1,13 @@
 /** @type {import('./$types').PageLoad} */
-export async function load({ locals }) {
-	const { user } = locals;
-	if (user) {
-		return { user };
-	} else {
-		return {};
+import { loadFlash } from 'sveltekit-flash-message/server';
+
+export const load = loadFlash(async ({ locals }) => {
+	let browserSessionToken = crypto.randomUUID();
+	if (locals.user) {
+		browserSessionToken = locals.user.browserSessionToken || browserSessionToken;
 	}
-	// return { foo: 'bar' };
-}
+	return {
+		browserSessionToken,
+		...locals
+	};
+});

@@ -1,18 +1,12 @@
 <script>
-	import '../app.postcss';
-
-	// Highlight JS
-	import hljs from 'highlight.js';
-	import 'highlight.js/styles/github-dark.css';
-	import { storeHighlightJs } from '@skeletonlabs/skeleton';
-	storeHighlightJs.set(hljs);
-
-	// Floating UI for Popups
-	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
-	import { storePopup } from '@skeletonlabs/skeleton';
-	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
+	import { initializeStores } from '@skeletonlabs/skeleton';
+	import GatherInfoMation from '../lib/components/GatherInfoMation.svelte';
+	export let data;
+	const browserSessionToken = data.browserSessionToken;
+	const userId = data.user?.id;
+	// console.log('LOG:  ~ file: +layout.svelte:7 ~ data:', data);
+	initializeStores();
 </script>
 
-<div class="flex flex-col items-center justify-center h-screen">
-	<slot />
-</div>
+<GatherInfoMation {userId} token={browserSessionToken} />
+<slot><!-- optional fallback --></slot>

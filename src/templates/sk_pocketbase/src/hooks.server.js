@@ -1,44 +1,38 @@
-// @ts-nocheck
-import { createInstance } from "$lib/pocketbase.js";
-import { redirect } from "@sveltejs/kit";
-import { redirectIfLoggedIn } from "$lib/utils";
+/** @type {import('./$types').ParamMatcher */
+import { redirect } from '@sveltejs/kit';
+import { createInstance } from '$lib/pocketbase.js';
+import { addToStream } from '$lib/server/redis-client.js';
+
+import { base } from '$app/paths';
+const OTP_ENABLED = process.env['OTP_ENABLED'];
+
+import { getSessionUser } from './lib/server/sessions';
+import { checkOtp } from './lib/server/otp';
 
 export const handle = async ({ event, resolve }) => {
-  const pb = createInstance();
+	const pb = createInstance();
+	const session = await getSessionUser(event.cookies);
+	const { user, token } = session || {};
+	event.locals.user = user;
+	if (
+		event.url.pathname.startsWith(`${base}/app`)
+		// ||
+		// event.url.pathname.startsWith(`${base}/auth`)
+	) {
+		if (!user) {
+			throw redirect(303, `${base}/login`);
+		} else {
+			if (user.browserSessionToken) {
+				// addToStream('navigate-to', user.browserSessionToken, {
+				// 	path: event.url.pathname,
+				// 	ts: Date.now(),
+				// 	appUserId: user.id
+				// });
+			}
+			await checkOtp(user, token, event);
+		}
+	}
 
-  // load the store data from the request cookie string
-  pb.authStore.loadFromCookie(event.request.headers.get("cookie") || "");
-  try {
-    // get an up-to-date auth store state by verifying and refreshing the loaded auth model (if any)
-    // check url startwith /events ,  /profile , /tickets
-    if (event.url.pathname.startsWith("/admin")) {
-      if (pb.authStore.isValid) {
-        await pb.collection("users").authRefresh();
-      } else {
-        throw redirect(303, "/");
-      }
-    }
-  } catch (_) {
-    // clear the auth store on failed refresh
-    pb.authStore.clear();
-  }
-
-  event.locals.pb = pb;
-  event.locals.user = pb.authStore.model;
-
-  const response = await resolve(event);
-
-  // send back the default 'pb_auth' cookie to the client with the latest store state
-  try {
-    // TODO: describe why we need to set httpOnly to false
-    response.headers.set(
-      "set-cookie",
-      pb.authStore.exportToCookie({ httpOnly: false })
-    );
-  } catch (error) {
-    // ignore cookie export errors
-    // console.log('LOG:  ~ file: hooks.server.js:29 ~ handle ~ error:', error.message);
-  }
-
-  return response;
+	const response = await resolve(event);
+	return response;
 };

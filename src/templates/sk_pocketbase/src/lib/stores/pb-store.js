@@ -6,8 +6,8 @@ export const getPbRealtimeDataStore = (data, collection, recordId = 'id') => {
 	if (!browser) {
 		return readable(data, () => {}); // noop
 	}
-	const highlightTime = 1000;
-	const findAndUpdateSession = (sessions, record, highlight) =>
+	const highlightTime = 500;
+	const findAndUpdateSession = async (sessions, record, highlight, action) =>
 		sessions.map((session) => {
 			if (session[recordId] === record[recordId]) {
 				return { ...record, highlight };
@@ -17,24 +17,24 @@ export const getPbRealtimeDataStore = (data, collection, recordId = 'id') => {
 
 	return readable(data, (set) => {
 		let sessions = data;
-		pb.collection(collection).subscribe('*', (coll) => {
+		pb.collection(collection).subscribe('*', async (coll) => {
 			const { action, record } = coll;
 			switch (action) {
 				case 'create':
 					sessions = [{ ...record, highlight: true }, ...sessions];
-					setTimeout(() => {
-						sessions = findAndUpdateSession(sessions, record, false);
+					setTimeout(async () => {
+						sessions = await findAndUpdateSession(sessions, record, false, action);
 						set(sessions);
 					}, highlightTime);
 					break;
 
 				case 'update':
-					console.log('update');
-					sessions = findAndUpdateSession(sessions, record, true);
-					setTimeout(() => {
-						sessions = findAndUpdateSession(sessions, record, false);
+					sessions = await findAndUpdateSession(sessions, record, true, action);
+					setTimeout(async () => {
+						sessions = await findAndUpdateSession(sessions, record, false, action);
 						set(sessions);
 					}, highlightTime);
+					// console.log('LOG:  ~ file: pb-store.js:34 ~ pb.collection ~ record:', record);
 					break;
 
 				case 'delete':

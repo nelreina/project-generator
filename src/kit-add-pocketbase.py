@@ -29,7 +29,15 @@ def run(args):
     create_from_template("sk_dockerfile", file_name)
     file_name = Path.joinpath(DIR_CURRENT_WORKING, "pb_schema.json")
     create_from_template("pb_schema.json", file_name)
+    file_name = Path.joinpath(DIR_CURRENT_WORKING, "Dockerfile.dev")
+    create_from_template("sk_dockerfile_dev", file_name)
+    file_name = Path.joinpath(DIR_CURRENT_WORKING, "svelte.config.js")
+    create_from_template("sk_svelte_config", file_name)
 
+    
+
+    os.system('npm uninstall @sveltejs/adapter-auto --package-lock-only')
+    os.system('npm i dotenv @sveltejs/adapter-node --package-lock-only')
     os.system('npm i pocketbase qrcode otplib highlight.js redis')
 
 
