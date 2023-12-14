@@ -45,6 +45,8 @@ def run(args):
          'pino',
          'pino-pretty',
         'lodash-es',
+        'nodemailer',
+        'svelte-email',
         '@nelreina/rest-client',
         '@nelreina/redis-stream-consumer'
         ]
