@@ -1,4 +1,4 @@
-FROM node:16-slim AS builder
+FROM node:18-slim AS builder
 ENV REDIS_HOST=172.17.0.1
 RUN mkdir /appsrc
 WORKDIR /appsrc
@@ -19,7 +19,7 @@ RUN npm run build
 RUN npm prune --production
 
 
-FROM node:16-slim
+FROM node:18-slim
 ENV NODE_ENV=production
 ENV REDIS_HOST=redis
 RUN apt-get install tzdata

@@ -44,7 +44,7 @@ def run(args):
         'redis', 
         'pino',
         'pino-pretty',
-        'uuid'
+        'uuid',
         'lodash-es',
         'nodemailer',
         'svelte-email',
