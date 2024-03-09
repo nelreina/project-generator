@@ -10,8 +10,6 @@ def run(args):
 
     os.chdir(DIR_CURRENT_WORKING)
 
-    
-    os.system('npm create skeleton-app@latest .')
     # CCopy src folder
     copy_template_folder(DIR_CURRENT_WORKING, 'sk_pocketbase', "src")       
     copy_template_folder(DIR_CURRENT_WORKING, 'sk_pocketbase', "static")       
@@ -39,15 +37,12 @@ def run(args):
         'qrcode', 
         'otplib', 
         'sveltekit-flash-message',
-        'dotenv', 
-        'pocketbase', 
-        'redis', 
-        'pino',
-        'pino-pretty',
-        'uuid',
+         'dotenv', 
+         'pocketbase', 
+         'redis', 
+         'pino',
+         'pino-pretty',
         'lodash-es',
-        'nodemailer',
-        'svelte-email',
         '@nelreina/rest-client',
         '@nelreina/redis-stream-consumer'
         ]

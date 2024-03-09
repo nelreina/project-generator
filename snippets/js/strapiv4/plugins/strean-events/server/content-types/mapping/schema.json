@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "mappings",
+  "info": {
+    "singularName": "mapping",
+    "pluralName": "mappings",
+    "displayName": "mapping"
+  },
+  "options": {
+    "draftAndPublish": false,
+    "comment": ""
+  },
+  "attributes": {
+    "event": {
+      "type": "string"
+    },
+    "service": {
+      "type": "string"
+    },
+    "method": {
+      "type": "string"
+    }
+  }
+}
